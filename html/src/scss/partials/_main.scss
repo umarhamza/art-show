@@ -1,0 +1,219 @@
+
+.main {
+    height: 100vh;
+    min-height: 400px;
+
+    &--row-1 {
+        height: 100%;
+        min-height: inherit;
+    } // row-1
+} // main
+
+.row {
+    @include bp {
+        display: flex;
+    }
+} // row
+
+.col {
+    padding-right: 20px;
+    padding-left: 20px;
+} // col
+
+.column {
+    padding-top: 25px;
+    padding-bottom: 25px;
+
+    @include bp {
+        padding: 60px 4.5%;
+    } // bp
+    
+    @include bp(1300px) {
+        padding: 60px;
+    } // bp    
+} // column
+
+.col-md-6 {
+    width: 100%;
+
+    @include bp {
+        width: 50%;
+    } // bp
+} // col-md-6
+
+.hero {
+    background: #333333 url("hero-img.jpg") no-repeat center;
+    background-size: cover;
+    color: #ffffff;
+    margin-bottom: 30px;
+
+    @include bp {
+        margin-bottom: 0;
+    }
+
+
+    @include headings {
+        color: inherit;
+    } // headings
+
+    &--inner {
+        position: relative;
+        height: 100%;
+    } // inner 
+
+    &--logo {
+        line-height: 1;
+        margin-bottom: 30px;
+
+        @include bp {
+            margin-bottom: 0;
+        }
+    } // logo
+
+    &--title {
+        line-height: 1.4;
+        margin-bottom: 40px;
+        
+        @include bp {
+            position: absolute;
+            top: 47%;
+            transform: translateY(-50%);
+            margin-bottom: 0;
+        } // bp
+    } // title
+
+    &--caption {
+        font-size: 18px;
+        margin-bottom: 0;
+        
+        @include bp {
+            font-size: 20px;
+            font-weight: 600;
+            position: absolute;
+            bottom: 0;
+        } // bp
+
+        @include bp(1600px) {
+            font-size: 28px;
+        } // bp
+        
+        &::before {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 2px;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            
+            @include bp {
+                margin-bottom: 30px;
+            } // bp
+
+        } // before
+    } // caption
+} // hero
+
+.faq {
+    &--title {
+        line-height: 1.4;
+        margin-bottom: 25px;
+
+        @include bp {
+            margin-bottom: 45px;
+        } // bp
+    } // title
+
+    .accordion {
+        @include bp {
+            overflow-x: hidden;
+            max-height: 70vh;
+            margin-bottom: 0;
+        } // bp
+
+        &[data-simplebar] {
+            @include bp {
+                padding-right: 18px;
+                margin-right: -18px;
+
+            }            
+        }
+    } // accordion
+} // faq
+
+.accordion {
+    @extend %element-margin;
+    padding: 0;
+    counter-reset: counter;
+    list-style: none;
+
+    &--item {
+        border-top: 1px solid $light-gray;
+
+        &:last-child {
+            border-bottom: 1px solid $light-gray;
+        } // last
+
+        @include bp {
+        } // bp 
+    } // item
+
+    &--title {
+        font-size: 16px;
+        margin: 0;
+        padding: 25px 18px 25px 0;
+        position: relative;
+
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {} // hover 
+
+        &::before {
+            content: counter(counter) '.';
+            counter-increment: counter;
+            display: inline-block;
+            margin-right: 5px;
+        } // before
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto 0;
+
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 7px 5px 0 5px;
+            border-color: #111111 transparent transparent transparent;
+            
+            transform: rotate(0deg);
+            transform-origin: center;   
+            transition: transform 0.3s ease-in-out;
+
+            .accordion--item.is-open & {
+                transform: rotate(180deg);
+            } // is-open
+        } // after
+    } // title
+
+    &--content {
+        max-height: 0px;
+        overflow: hidden;
+        padding-left: 2px;
+        transition: all 0.3s ease-out;
+        
+        .accordion--item.is-open & {
+            padding-bottom: 40px;
+            padding-top: 15px;
+            max-height: 1000px;
+            transition: all 0.3s ease-in;
+    
+            @include bp {
+                padding-bottom: 64px;
+            } // bp
+        } // is-open
+    } // content
+} // .accordion
