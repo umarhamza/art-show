@@ -1,20 +1,30 @@
 (function(){
 
     const accordion = document.querySelector('#js-faqs');
+    const storedData = JSON.parse(localStorage.getItem('items'));
 
     const initAll = () => {
         Accordion();
-        LoadData(); 
+        CheckData(); 
     } // initAll
     
+    const CheckData = () => {
+        if (storedData) {
+            CreateList(storedData);
+        } else {
+            LoadData();
+        }
+    } // CheckData
+
     const LoadData = () => {
-        var request = new XMLHttpRequest();
+        const request = new XMLHttpRequest();
         request.open('GET', 'data.json', true);
 
         request.onload = function () {
             if (this.status >= 200 && this.status < 400) {
-                var data = JSON.parse(this.response);
-                data && CreateList(data); ScrollBar();
+                const data = JSON.parse(this.response);
+                StoreData(data);
+                CreateList(data);
             } else {
                 console.error('server returned an error');
             }
@@ -26,6 +36,10 @@
 
         request.send();
     } // LoadData
+
+    const StoreData = (loadedData) => {
+        localStorage.setItem('items', JSON.stringify(loadedData));
+    } // StoreData
 
     const Accordion = () => {
 
@@ -39,7 +53,7 @@
 
             _parent.classList.toggle('is-open');
 
-            for (var i = 0; i < items.length; i++) {
+            for (let i = 0; i < items.length; i++) {
 
                 if (items[i] === _parent) continue;
 
@@ -66,6 +80,7 @@
         }); 
 
         accordion.innerHTML = items;
+        ScrollBar();
     } // CreateList
 
     const ScrollBar = () => {
