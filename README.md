@@ -1,4 +1,4 @@
-# README
+## README
 This is a demonstration of front end, json and XMLHttpRequest skills.
 
 # Demo
@@ -7,3 +7,8 @@ This is a demonstration of front end, json and XMLHttpRequest skills.
 ## How could I have improved
 - I could have compared the loaded data with the save data and then update save data if returns true using: `JSON.stringify(storedData) === JSON.stringify(k2); // true`
 - I could have used ReactJS
+
+### Disclaimer:
+- This is a test project I built to showcase my knowledge.
+- I built the app myself based on a design I was given.
+- This is not my designs or idea.
